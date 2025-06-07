@@ -16,4 +16,14 @@ public class UsuarioNivelDecorado extends UsuarioDecorator {
     public int getNivelJuego() {
         return nivelJuego;
     }
+
+    @Override
+    public void setEmail(String email) {
+        usuario.setEmail(email);
+    }
+
+    @Override
+    public void setNombre(String nombre) {
+        usuario.setNombre(nombre);
+    }
 }

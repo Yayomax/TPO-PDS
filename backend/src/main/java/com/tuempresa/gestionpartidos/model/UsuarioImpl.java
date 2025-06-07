@@ -40,4 +40,14 @@ public class UsuarioImpl implements Usuario {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    @Override
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 }

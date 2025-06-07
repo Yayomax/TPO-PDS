@@ -16,4 +16,14 @@ public class UsuarioDeporteFavoritoDecorado extends UsuarioDecorator {
     public String getDeporteFavorito() {
         return deporteFavorito;
     }
+
+    @Override
+    public void setEmail(String email) {
+        usuario.setEmail(email);
+    }
+
+    @Override
+    public void setNombre(String nombre) {
+        usuario.setNombre(nombre);
+    }
 }

@@ -2,6 +2,7 @@ package com.tuempresa.gestionpartidos.security.test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tuempresa.gestionpartidos.model.Usuario;
+import com.tuempresa.gestionpartidos.model.UsuarioConcreto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -22,7 +23,7 @@ public class AuthControllerIntegrationTest {
 
     @Test
     void testRegisterYLogin() throws Exception {
-        Usuario usuario = new Usuario();
+        Usuario usuario = new UsuarioConcreto();
         usuario.setNombre("Test");
         usuario.setEmail("test@correo.com");
         usuario.setPassword("123456");

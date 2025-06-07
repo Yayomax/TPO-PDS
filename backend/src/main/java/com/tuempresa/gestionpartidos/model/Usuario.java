@@ -10,4 +10,6 @@ public interface Usuario {
     String getEmail();
     String getPassword();
     void setPassword(String password);
+    void setNombre(String nombre);
+    void setEmail(String email);
 }

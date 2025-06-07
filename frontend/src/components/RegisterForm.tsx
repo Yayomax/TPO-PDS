@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import usuarioService from '../services/usuarioService';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterForm: React.FC = () => {
   const [nombre, setNombre] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [mensaje, setMensaje] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await usuarioService.registrar({ nombre, email, password });
+      await usuarioService.register({ nombre, email, password });
       setMensaje('Registro exitoso');
+      setTimeout(() => navigate('/login'), 1000);
     } catch (err) {
       setMensaje('Error en el registro');
     }

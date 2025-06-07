@@ -3,6 +3,7 @@ package com.tuempresa.gestionpartidos.service;
 import com.tuempresa.gestionpartidos.model.Usuario;
 import com.tuempresa.gestionpartidos.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -14,8 +15,11 @@ import java.util.Optional;
 public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public Usuario registrar(Usuario usuario) {
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         return usuarioRepository.save(usuario);
     }
 
@@ -29,5 +33,10 @@ public class UsuarioService {
 
     public List<Usuario> listarTodos() {
         return usuarioRepository.findAll();
+    }
+
+    public boolean validarCredenciales(String email, String password) {
+        Usuario usuario = usuarioRepository.findByEmail(email);
+        return usuario != null && passwordEncoder.matches(password, usuario.getPassword());
     }
 }

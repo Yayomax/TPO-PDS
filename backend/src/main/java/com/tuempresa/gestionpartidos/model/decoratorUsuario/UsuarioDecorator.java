@@ -32,4 +32,9 @@ public abstract class UsuarioDecorator implements Usuario {
     public String getPassword() {
         return usuario.getPassword();
     }
+
+    @Override
+    public void setPassword(String password) {
+        usuario.setPassword(password);
+    }
 }

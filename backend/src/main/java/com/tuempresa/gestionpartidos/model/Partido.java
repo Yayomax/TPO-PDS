@@ -38,5 +38,29 @@ public class Partido {
         this.emparejador = nuevaEstrategia;
     }
 
+    public List<Usuario> getJugadores() {
+        return jugadores;
+    }
+
+    public int getCantidadJugadores() {
+        return cantidadJugadores;
+    }
+
+    public EstadoPartido getEstado() {
+        return estado;
+    }
+
+    public void setCantidadJugadores(int cantidadJugadores) {
+        this.cantidadJugadores = cantidadJugadores;
+    }
+
+    public void setJugadores(List<Usuario> jugadores) {
+        this.jugadores = jugadores;
+    }
+
+    public void setEstado(EstadoPartido estado) {
+        this.estado = estado;
+    }
+
     // Getters y setters omitidos por brevedad
 }

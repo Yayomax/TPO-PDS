@@ -2,50 +2,48 @@ package com.tuempresa.gestionpartidos.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    private final JwtAuthenticationFilter jwtFilter;
-    private final AuthenticationConfiguration authConfig;
 
-    public SecurityConfig(JwtAuthenticationFilter jwtFilter, AuthenticationConfiguration authConfig) {
-        this.jwtFilter = jwtFilter;
-        this.authConfig = authConfig;
+    private final JwtTokenProvider tokenProvider;
+
+    public SecurityConfig(JwtTokenProvider tokenProvider) {
+        this.tokenProvider = tokenProvider;
     }
 
     @Bean
-    public AuthenticationManager authenticationManager() throws Exception {
-        return authConfig.getAuthenticationManager();
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public JwtAuthenticationFilter jwtAuthenticationFilter(AuthenticationManager authenticationManager) {
+        return new JwtAuthenticationFilter(tokenProvider, authenticationManager);
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
         http
-            .csrf().disable()
-            .authorizeRequests()
+            .csrf(AbstractHttpConfigurer::disable)
+            .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .authorizeRequests(authz -> authz
                 .antMatchers("/api/auth/**").permitAll()
+                .antMatchers("/api/partidos/**").permitAll() // Permitir acceso público a partidos
                 .anyRequest().authenticated()
-            .and()
-            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-        return http.build();
-    }
+            )
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+            .cors(); // Habilitar CORS en el filtro de seguridad
 
-    @Bean
-    public JwtAuthenticationFilter jwtAuthenticationFilter(JwtTokenProvider tokenProvider, AuthenticationManager authManager, UserDetailsService userDetailsService) {
-        return new JwtAuthenticationFilter(tokenProvider, authManager, userDetailsService);
+        return http.build();
     }
 }

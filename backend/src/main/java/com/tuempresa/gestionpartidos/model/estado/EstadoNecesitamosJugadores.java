@@ -10,7 +10,7 @@ import com.tuempresa.gestionpartidos.model.Usuario;
 public class EstadoNecesitamosJugadores implements EstadoPartido {
     @Override
     public void agregarJugador(Partido partido, Usuario usuario) {
-        partido.getJugadores().add(usuario);
+        partido.agregarJugador(usuario);
         if (partido.getJugadores().size() >= partido.getCantidadJugadores()) {
             partido.cambiarEstado(new EstadoArmado());
         }

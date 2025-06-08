@@ -1,6 +1,6 @@
 package com.tuempresa.gestionpartidos.controller;
 
-import com.tuempresa.gestionpartidos.model.Usuario;
+import com.tuempresa.gestionpartidos.model.UsuarioConcreto;
 import com.tuempresa.gestionpartidos.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,17 +17,17 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @PostMapping("/register")
-    public Usuario registrar(@RequestBody Usuario usuario) {
+    public UsuarioConcreto registrar(@RequestBody UsuarioConcreto usuario) {
         return usuarioService.registrar(usuario);
     }
 
     @GetMapping("/{id}")
-    public Optional<Usuario> buscarPorId(@PathVariable Long id) {
+    public Optional<UsuarioConcreto> buscarPorId(@PathVariable Long id) {
         return usuarioService.buscarPorId(id);
     }
 
     @GetMapping
-    public List<Usuario> listarTodos() {
+    public List<UsuarioConcreto> listarTodos() {
         return usuarioService.listarTodos();
     }
 }

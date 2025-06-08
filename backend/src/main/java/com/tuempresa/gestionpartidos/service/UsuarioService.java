@@ -1,6 +1,6 @@
 package com.tuempresa.gestionpartidos.service;
 
-import com.tuempresa.gestionpartidos.model.Usuario;
+import com.tuempresa.gestionpartidos.model.UsuarioConcreto;
 import com.tuempresa.gestionpartidos.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,25 +18,25 @@ public class UsuarioService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public Usuario registrar(Usuario usuario) {
+    public UsuarioConcreto registrar(UsuarioConcreto usuario) {
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         return usuarioRepository.save(usuario);
     }
 
-    public Optional<Usuario> buscarPorId(Long id) {
+    public Optional<UsuarioConcreto> buscarPorId(Long id) {
         return usuarioRepository.findById(id);
     }
 
-    public Usuario buscarPorEmail(String email) {
+    public UsuarioConcreto buscarPorEmail(String email) {
         return usuarioRepository.findByEmail(email);
     }
 
-    public List<Usuario> listarTodos() {
+    public List<UsuarioConcreto> listarTodos() {
         return usuarioRepository.findAll();
     }
 
     public boolean validarCredenciales(String email, String password) {
-        Usuario usuario = usuarioRepository.findByEmail(email);
+        UsuarioConcreto usuario = usuarioRepository.findByEmail(email);
         return usuario != null && passwordEncoder.matches(password, usuario.getPassword());
     }
 }

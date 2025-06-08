@@ -1,9 +1,15 @@
 package com.tuempresa.gestionpartidos.model;
 
+import javax.persistence.*;
+
 /**
  * Implementación concreta de Usuario para pruebas y uso general.
  */
+@Entity
+@Table(name = "usuarios")
 public class UsuarioConcreto implements Usuario {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
     private String email;

@@ -7,10 +7,18 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.test.context.TestPropertySource;
+
 import javax.servlet.FilterChain;
+import java.util.Collections;
+
 import static org.mockito.Mockito.*;
 
+@TestPropertySource(properties = "jwt.secret=MiClaveSecretaBase64==")
 class JwtAuthenticationFilterTest {
     private JwtAuthenticationFilter filter;
     private JwtTokenProvider jwtTokenProvider;
@@ -19,9 +27,14 @@ class JwtAuthenticationFilterTest {
 
     @BeforeEach
     void setUp() {
-        jwtTokenProvider = new JwtTokenProvider();
+        String secret = "bXlzZWNyZXRrZXlmb3Jqd3QxMjM0NTY3ODkwMTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNDU2Nzg5MDE=";
+        jwtTokenProvider = new JwtTokenProvider(secret);
+        jwtTokenProvider.setCustomExpirationMs(60000); // 1 minuto
         userDetailsService = mock(UserDetailsService.class);
-        filter = new JwtAuthenticationFilter();
+        UserDetails userDetails = new User("usuario@correo.com", "password", Collections.emptyList());
+        when(userDetailsService.loadUserByUsername("usuario@correo.com")).thenReturn(userDetails);
+        AuthenticationManager authManager = mock(AuthenticationManager.class);
+        filter = new JwtAuthenticationFilter(jwtTokenProvider, authManager, userDetailsService);
         filterChain = mock(FilterChain.class);
     }
 

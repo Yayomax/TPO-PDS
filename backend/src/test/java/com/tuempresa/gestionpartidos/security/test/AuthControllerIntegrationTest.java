@@ -1,6 +1,7 @@
 package com.tuempresa.gestionpartidos.security.test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tuempresa.gestionpartidos.GestionpartidosApplication;
 import com.tuempresa.gestionpartidos.model.Usuario;
 import com.tuempresa.gestionpartidos.model.UsuarioConcreto;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@SpringBootTest
+@SpringBootTest(classes = GestionpartidosApplication.class)
 @AutoConfigureMockMvc
 public class AuthControllerIntegrationTest {
     @Autowired

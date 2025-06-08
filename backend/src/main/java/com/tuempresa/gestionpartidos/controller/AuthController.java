@@ -1,6 +1,6 @@
 package com.tuempresa.gestionpartidos.controller;
 
-import com.tuempresa.gestionpartidos.model.Usuario;
+import com.tuempresa.gestionpartidos.model.UsuarioConcreto;
 import com.tuempresa.gestionpartidos.security.JwtTokenProvider;
 import com.tuempresa.gestionpartidos.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody Usuario usuario) {
+    public ResponseEntity<?> register(@RequestBody UsuarioConcreto usuario) {
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         usuarioService.registrar(usuario);
         return ResponseEntity.ok("Usuario registrado");
@@ -34,7 +34,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> credentials) {
-        Usuario usuario = usuarioService.buscarPorEmail(credentials.get("email"));
+        UsuarioConcreto usuario = usuarioService.buscarPorEmail(credentials.get("email"));
         if (usuario == null || !passwordEncoder.matches(credentials.get("password"), usuario.getPassword())) {
             return ResponseEntity.status(401).body("Credenciales inválidas");
         }

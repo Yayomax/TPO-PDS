@@ -2,6 +2,15 @@ import { render, fireEvent, screen } from '@testing-library/react';
 import RegisterForm from '../components/RegisterForm';
 import usuarioService from '../services/usuarioService';
 
+// Mock react-router-dom to avoid requiring the actual library during tests
+jest.mock(
+  'react-router-dom',
+  () => ({
+    useNavigate: () => jest.fn(),
+  }),
+  { virtual: true }
+);
+
 jest.mock('../services/usuarioService');
 
 describe('RegisterForm', () => {

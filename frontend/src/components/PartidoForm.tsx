@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import partidoService from '../services/partidoService';
+import { useAuth } from '../services/useAuth';
 
 const PartidoForm: React.FC = () => {
+  const { userId } = useAuth();
   const [deporte, setDeporte] = useState('');
   const [ubicacion, setUbicacion] = useState('');
   const [horario, setHorario] = useState('');
@@ -12,7 +14,10 @@ const PartidoForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await partidoService.crearPartido({ deporte, ubicacion, horario, duracion, cantidadJugadores });
+      await partidoService.crearPartido(
+        { deporte, ubicacion, horario, duracion, cantidadJugadores },
+        Number(userId)
+      );
       setMensaje('Partido creado');
     } catch (err) {
       setMensaje('Error al crear partido');

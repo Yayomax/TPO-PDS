@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
 import usuarioService from '../services/usuarioService';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../services/useAuth';
 
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [mensaje, setMensaje] = useState('');
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await usuarioService.login({ email, password });
+      const data = await usuarioService.login({ email, password });
+      if (data.token && data.id !== undefined) {
+        login(data.token, String(data.id));
+      }
       setMensaje('Login exitoso');
       setTimeout(() => navigate('/'), 1000);
     } catch (err) {

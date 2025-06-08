@@ -1,0 +1,96 @@
+body {
+  background-color: #f0f2f5; /* light gray */
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  color: #28a745; /* green */
+  text-align: center;
+}
+
+h2 {
+  color: #033d00; /* dark green */
+  text-align: center;
+}
+
+form {
+  background-color: #fff;
+  padding: 20px;
+  margin: 20px auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  max-width: 400px;
+  width: 100%;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+button {
+  background-color: #28a745;
+  color: #fff;
+  padding: 12px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 15px;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #218838;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.partido-list {
+  width: 100%;
+  padding: 0;
+}
+
+.partido-item {
+  background-color: #fff;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #28a745;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.estado {
+  background-color: #28a745;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+
+p {
+  text-align: center;
+  color: #333;
+}
+
+.app-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

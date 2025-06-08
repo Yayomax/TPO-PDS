@@ -11,9 +11,12 @@ const PartidoList: React.FC = () => {
   return (
     <div>
       <h2>Partidos Disponibles</h2>
-      <ul>
+      <ul className="partido-list">
         {partidos.map((p) => (
-          <li key={p.id}>{p.deporte} - {p.ubicacion} - {p.estado?.nombre}</li>
+          <li key={p.id} className="partido-item">
+            <span>{p.deporte} - {p.ubicacion}</span>
+            <span className="estado">{p.estado}</span>
+          </li>
         ))}
       </ul>
     </div>

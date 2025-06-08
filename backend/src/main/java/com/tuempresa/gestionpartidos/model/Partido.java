@@ -3,6 +3,7 @@ package com.tuempresa.gestionpartidos.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.tuempresa.gestionpartidos.model.estado.EstadoPartido;
+import com.tuempresa.gestionpartidos.model.estado.EstadoNecesitamosJugadores;
 import com.tuempresa.gestionpartidos.model.estrategiaEmparejamiento.IEstrategiaEmparejamiento;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Transient;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.PostLoad;
 
 /**
  * Entidad principal que representa un partido deportivo.
@@ -130,5 +132,12 @@ public class Partido {
     @JsonIgnore
     public EstadoPartido getEstadoReal() {
         return estado;
+    }
+
+    @PostLoad
+    private void initEstado() {
+        if (estado == null) {
+            estado = new EstadoNecesitamosJugadores();
+        }
     }
 }

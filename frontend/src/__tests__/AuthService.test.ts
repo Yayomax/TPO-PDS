@@ -12,8 +12,9 @@ describe('usuarioService', () => {
   });
 
   it('login guarda el token en localStorage', async () => {
-    mockedAxios.post.mockResolvedValue({ data: { token: 'abc' } });
+    mockedAxios.post.mockResolvedValue({ data: { token: 'abc', id: 5 } });
     await usuarioService.login({ email: 'a@a.com', password: '123' });
     expect(localStorage.getItem('token')).toBe('abc');
+    expect(localStorage.getItem('userId')).toBe('5');
   });
 });

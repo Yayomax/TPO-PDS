@@ -5,7 +5,6 @@ import com.tuempresa.gestionpartidos.security.JwtTokenProvider;
 import com.tuempresa.gestionpartidos.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
@@ -38,8 +37,9 @@ public class AuthController {
             return ResponseEntity.status(401).body("Credenciales inválidas");
         }
         String token = jwtTokenProvider.generarToken(usuario.getEmail());
-        Map<String, String> response = new HashMap<>();
+        Map<String, Object> response = new HashMap<>();
         response.put("token", token);
+        response.put("id", usuario.getId());
         return ResponseEntity.ok(response);
     }
 }

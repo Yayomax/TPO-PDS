@@ -36,6 +36,7 @@ public class AuthControllerIntegrationTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"email\":\"test@correo.com\",\"password\":\"123456\"}"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.token").exists());
+                .andExpect(jsonPath("$.token").exists())
+                .andExpect(jsonPath("$.id").exists());
     }
 }

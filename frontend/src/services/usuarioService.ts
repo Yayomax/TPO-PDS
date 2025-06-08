@@ -7,6 +7,9 @@ const usuarioService = {
     if (res.data.token) {
       localStorage.setItem('token', res.data.token);
     }
+    if (res.data.id !== undefined) {
+      localStorage.setItem('userId', String(res.data.id));
+    }
     return res.data;
   },
   listarTodos: () => api.get('/usuarios'),

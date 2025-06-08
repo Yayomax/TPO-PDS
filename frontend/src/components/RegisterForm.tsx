@@ -27,6 +27,7 @@ const RegisterForm: React.FC = () => {
       <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required />
       <input type="password" placeholder="Contraseña" value={password} onChange={e => setPassword(e.target.value)} required />
       <button type="submit">Registrarse</button>
+      <button type="button" onClick={() => navigate(-1)} style={{ marginLeft: 8 }}>Back</button>
       {mensaje && <p>{mensaje}</p>}
     </form>
   );

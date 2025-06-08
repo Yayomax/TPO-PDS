@@ -22,11 +22,16 @@ const PartidoForm: React.FC = () => {
   return (
     <form onSubmit={handleSubmit}>
       <h2>Crear Partido</h2>
-      <input type="text" placeholder="Deporte" value={deporte} onChange={e => setDeporte(e.target.value)} required />
-      <input type="text" placeholder="Ubicación" value={ubicacion} onChange={e => setUbicacion(e.target.value)} required />
-      <input type="datetime-local" value={horario} onChange={e => setHorario(e.target.value)} required />
-      <input type="number" placeholder="Duración (min)" value={duracion} onChange={e => setDuracion(Number(e.target.value))} required />
-      <input type="number" placeholder="Cantidad de Jugadores" value={cantidadJugadores} onChange={e => setCantidadJugadores(Number(e.target.value))} required />
+      <label htmlFor="deporte">Deporte</label>
+      <input id="deporte" name="deporte" type="text" placeholder="Deporte" value={deporte} onChange={e => setDeporte(e.target.value)} required />
+      <label htmlFor="ubicacion">Ubicación</label>
+      <input id="ubicacion" name="ubicacion" type="text" placeholder="Ubicación" value={ubicacion} onChange={e => setUbicacion(e.target.value)} required />
+      <label htmlFor="horario">Horario</label>
+      <input id="horario" name="horario" type="datetime-local" value={horario} onChange={e => setHorario(e.target.value)} required />
+      <label htmlFor="duracion">Duración (minutos)</label>
+      <input id="duracion" name="duracion" type="number" placeholder="Duración (min)" value={duracion} onChange={e => setDuracion(Number(e.target.value))} required />
+      <label htmlFor="cantidadJugadores">Cantidad de Jugadores</label>
+      <input id="cantidadJugadores" name="cantidadJugadores" type="number" placeholder="Cantidad de Jugadores" value={cantidadJugadores} onChange={e => setCantidadJugadores(Number(e.target.value))} required />
       <button type="submit">Crear</button>
       {mensaje && <p>{mensaje}</p>}
     </form>
